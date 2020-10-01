@@ -1,0 +1,62 @@
+<html>
+<head>
+    <title>Bitcoin Price Currently</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <!-- <meta http-equiv="refresh" content="60;"> -->
+</head>
+<body>
+<div id="ana_div">
+    <div class="div" id="div">
+        <label>HOUR</label>
+        <input type="text" maxlength="2" size="4" placeholder="0" id="HourText" > <br><br>
+        <input class="button" type="button" id="hourinc" value="+" onclick="Inc(1)">
+        <input class="button" type="button" id="hourdec" value="-" onclick="Dec(2)">
+        <input id="btnStart" type="button" value="START" onclick="myfunctionSefa()">
+    </div>
+    <div class="div" id="div2">
+        <label for="MinuteText">MINUTE</label>
+        <input class="text" type="text" id="MinuteText" maxlength="2" size="4" placeholder="0" ><br><br>
+        <input class="button" type="button" id="minuteinc" value="+" onclick="Inc(3)" />
+        <input class="button" type="button" id="minutedec" value="-" onclick="Dec(4)" />
+    </div>
+    <div class="div" id="div3">
+        <label for="SecondText">SECOND</label>
+        <input class="text" type="text" id="SecondText" maxlength="2" size="4" placeholder="0" ><br><br>
+        <input class="button" type="button" id="secondinc" value="+" onclick="Inc(5)"/>
+        <input class="button" type="button" id="seconddec" value="-" onclick="Dec(6)"/>
+    </div>
+</div>
+
+<p visible="false" id="demo"></p>
+<script src="script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+
+</body>
+
+<body>
+<div id="data"/>
+<script type="text/javascript">
+    var xmlhttp = new XMLHttpRequest();
+    var url="https://api.coindesk.com/v1/bpi/currentprice.json"
+    xmlhttp.onreadystatechange=function(){
+        if(this.readyState == 4 && this.status == 200){
+            var json = JSON.parse(this.responseText);
+            parseJson(json);
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+    function parseJson(json){
+        var time = "<b>Last Updated : " + json["time"]["updated"]+ "</b>";
+        var usdValue = "1 BTC equals to $" + json["bpi"]["USD"]["rate"];
+        var gbpValue = "1 BTC equals to &pound;" + json["bpi"]["GBP"]["rate"];
+        var euroValue = "1 BTC equals to &euro;" + json["bpi"]["EUR"]["rate"];
+        document.getElementById("data").innerHTML = time + "<br /><br />" + usdValue + "<br />" + gbpValue + "<br />" + euroValue;
+    }
+</script>
+<script src="script.js"></script>
+</body>
+</html>
